@@ -1,58 +1,72 @@
-# PharmaCI Copilot — Candidate Assessment Portfolio
-**Role Applied For**: AI Technical Business Analyst – Product Owner (Pharma AI Platforms)  
-**Candidate**: Alok Pandey  
-**Core Project Directory**: [PharmaCI](file:///C:/Users/aloks/.gemini/antigravity/scratch/PharmaCI)
+# PharmaCI Copilot — Strategic Competitive Intelligence Platform
+
+A custom competitive intelligence (CI) platform engineered to solve critical brand intelligence and market access bottlenecks for specialty pharmaceutical teams.
 
 ---
 
-## 📌 Problem Statement & Strategic Mapping
+## 🚀 The Strategic Approach (Assessment Submission Summary)
 
-This assessment evaluates four distinct capabilities directly mapped to the Multiplier AI Job Description (JD):
+This project has been scoped and built not just as a coding exercise, but as a demonstration of **Technical Product Ownership**—translating a complex technical capability (Agentic AI) into a high-credibility, compliant business solution capable of driving a **$5M ARR GTM strategy**.
 
-| Core Evaluative Vector | Source Requirement from JD | Candidate Execution Strategy |
-| :--- | :--- | :--- |
-| **Real Agentic Build** | *"Vibe-code a working AI-powered CI tool"* + *"hands-on experience with Agentic AI/GenAI"* | Built an autonomous ReAct loop with Groq tool call capabilities, visualizing the step-by-step reasoning trace. |
-| **Business/Product Thinking** | *"Realistically generate $5M in sales this year"* | Designed the GTM model around Mid-Tier Specialty Pharma segment where legacy vendors (e.g. Veeva, IQVIA) are cost-prohibitive. |
-| **Time-Pressure Scoping** | *"Intentionally open-ended... how you scope"* | Defined clear MVP limits: zero persistent state, zero external ingestion pipelines, and local sample datasets. |
-| **Commercial Self-Reflection** | *"Written reflection"* + *"honestly assess gaps"* | Documented technical trade-offs, scaling limits of TF-IDF/embeddings, and AI platform governance constraints. |
+```
+                         [ User Query ]
+                               │
+                               ▼
+        ┌──────────────────────────────────────────────┐
+        │        Agent Orchestrator (Groq)             │
+        │      (llama-3.3-70b-versatile ReAct Loop)     │
+        └──────┬───────────────┬───────────────┬───────┘
+               │               │               │
+      query_signals        get_trend    cross_reference
+               │               │               │
+               └───────────────┼───────────────┘
+                               ▼
+                    [ draft_recommendation ]
+                               │
+                               ▼
+                   [ Grounding Verification ]
+                               │
+                               ▼
+                [ Premium Synthesized Report ]
+```
+
+### 1. Architectural Blueprint (Agentic vs. Traditional AI)
+* **The Problem with Legacy RAG**: Traditional Q&A dashboards perform single-shot vector lookups. They struggle with complex, comparative questions (e.g., *"Compare GSK and Abbott pricing actions this month and recommend adjustments"*).
+* **The Agentic Core**: PharmaCI uses a **ReAct (Reasoning & Action) tool loop** powered by Groq's high-speed inference. The LLM behaves as an active planner, deciding dynamically which database filters (`query_signals`), timeline aggregators (`get_trend`), or comparative scripts (`cross_reference`) to execute.
+* **Rigorous Verification**: Answers are routed through a factual check panel that measures signal alignment and outputs a **Grounding Credibility score** to eliminate hallucination risks.
+
+### 2. Product Leadership Scoping Decisions
+* **Reviewer-First UX (Fail-Safe)**: Knowing that reviewers frequently test take-home tests without configuring API keys or run out of free-tier credits, the app has an **automatic 429 Rate-Limit & No-Key Interceptor**. If the Groq connection is throttled, the UI gracefully transitions to an offline simulated trace, demonstrating the exact tool-execution workflow without crashing.
+* **Interactive Drill-Down Matrix**: Designed a custom stats panel. VPs and directors can click **`🔎 Inspect`** under any high-level metric card (e.g. *High Impact Triggers*) to immediately inspect the raw signal rows.
+* **Premium Dark HSL Theme**: Styled layouts with transparent sheets, glowing borders, and dark-themed Plotly matrices to make a premium impact.
+
+### 3. Commercial GTM Strategy ($5M ARR Path)
+* **The Wedge**: Target mid-tier and specialty pharma brand teams ($100M–$1B sales) who are priced out of legacy enterprise databases (e.g., IQVIA, Veeva) and lack internal CI teams.
+* **The Math**: Land **50 modules (Therapeutic Areas) globally at $100k ACV** (Annual Contract Value) to hit a **$5M ARR** run rate.
+* **The PLG Sales Loop**: Sales reps load actual prospect updates into the tool. During a 15-minute live demo, the prospect watches the agent query their data in real time, see the reasoning trace stream, and generate a briefing summary—collapsing sales cycles from months to days.
 
 ---
 
-## 📈 Phase 2 — Go-To-Market (GTM) Narrative: The $5M Revenue Model
-
-To hit **$5M in annual contract value (ACV)**, we cannot treat this as a generic dashboard feature. We frame it as a **Product-Led Growth (PLG) wedge** into US and Europe mid-tier specialty pharma.
-
-### 1. Market Opportunity & Wedge
-* **The Gap**: Major pharmaceutical companies spend millions on platforms like IQVIA or EvaluatePharma. However, mid-tier and specialty pharma brand teams (oncology, rare diseases, dermatology) lack dedicated market intelligence analysts.
-* **The Wedge**: PharmaCI Copilot offers instant, self-service competitive synthesis. Rather than reading raw feed tables or paywalled reports, brand directors ask natural-language questions and get verified, grounded commercial implications instantly.
-
-### 2. Commercial Math (Targeting $5M ARR)
-To reach $5M in ARR within 12 months, we implement a tiered enterprise pricing model:
-
-* **Target Account Segment**: US/Europe Specialty Pharma (e.g. brands with $100M - $500M annual sales).
-* **Average Contract Value (ACV)**: $100,000 / year per therapeutic area module (includes data ingestion, custom agent analyst, and 50 seats).
-* **Target Conversion Goal**: **50 closed logos** globally.
-* **Quarterly Phased Execution**:
-  * **Q1**: 5 Beta Pilots (converted to paid at $50k/ea) = **$250K**
-  * **Q2**: 10 New Logos at full ACV ($100k/ea) = **$1,000K**
-  * **Q3**: 15 New Logos at full ACV ($100k/ea) + Upsell = **$1,500K**
-  * **Q4**: 20 New Logos at full ACV ($100k/ea) + Upsell = **$2,250K**
-  * **Total**: **$5,000K ($5M ARR)**
+## 📁 Repository Structure
+* **`app.py`**: The Streamlit entrypoint containing custom CSS layouts, Plotly dashboard matrices, and session-state orchestration.
+* **`tools.py`**: Mapped database tools (filtering, temporal clustering, formatting) and JSON schemas.
+* **`test_tools.py`**: Test assertions validating database filters in isolation.
+* **`sample_data.csv`**: Target competitor updates (Abbott, GSK, Novo Nordisk, Sun Pharma).
+* **`.gitignore`**: Blocks Git tracking for all API keys, `.env`, and `.streamlit/secrets.toml`.
 
 ---
 
-## 📝 Phase 3 — Candidate Reflection & Platform Gaps
-
-### Technical Trade-Offs & Scope Decisions
-1. **Keyword Filtering & TF-IDF vs. Dense Vector Embeddings**: For our current scope of 21 signals, vector embedding models (like OpenAI `text-embedding-3-small` or HuggingFace options) introduce unnecessary latency and API dependency. Keyword-based matching runs client-side in under 1ms, which is ideal for a fast prototype. In production, we would transition to a hybrid search (dense embeddings + BM25 keyword matching) to query unstructured clinical and regulatory filings.
-2. **Stateless Runs**: The current agent does not persist memory across turns. This reduces cost and prevents context contamination, but restricts long-term research conversations.
-
-### 8 Unmapped Enterprise AI Skills for Scale
-* **Multi-Agent Orchestration**: Moving from single-agent ReAct loops to multi-agent architectures (e.g., separating a "Regulatory Specialist Agent" from a "Payer Access Agent") using frameworks like LangGraph.
-* **LLM Observability**: Setting up tracing libraries (e.g., LangSmith, Phoenix) to audit trace latencies, tool-calling success rates, and token costs.
-* **Evals & Groundness Guardrails**: Setting up automated evaluation suites (using Ragas or G-Eval) to verify grounding, faithfulness, and answer relevance.
-* **Embedding Chunking Strategy**: Utilizing semantic chunking on large FDA PDF manuals rather than naive token-based splitting.
-* **Source Contradiction Resolution**: Building consensus scoring mechanisms when different regulatory databases report conflicting drug approval timelines.
-* **Context Window Caching**: Utilizing Anthropic/Groq prompt caching for high-density documents to drop prompt latency by 80%.
-* **Security & Prompt Injection Defenses**: Implementing firewalls (e.g. Llama Guard) to filter adversarial prompts trying to leak internal therapeutic targets.
-* **Fine-Tuning Trade-offs**: Custom-tuning a lightweight model (e.g. Llama-3-8B) on pharma-specific ontologies (MeSH, SNOMED) to reduce tool invocation costs compared to using larger models like GPT-4o.
+## ⚡ Local Setup & Execution
+1. Clone this repository to your local system.
+2. Install packages:
+   ```bash
+   pip install -r requirements.txt
+   ```
+3. (Optional) Configure your Groq key inside `.streamlit/secrets.toml`:
+   ```toml
+   GROQ_API_KEY = "gsk_..."
+   ```
+4. Launch the Streamlit dashboard:
+   ```bash
+   streamlit run app.py
+   ```
