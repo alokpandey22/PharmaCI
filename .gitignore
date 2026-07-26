@@ -1,0 +1,19 @@
+# Streamlit Secrets (DO NOT COMMIT API KEYS)
+.streamlit/secrets.toml
+
+# Local Environment Variables
+.env
+.env.local
+.env.production
+.env.development
+
+# Python virtual environment
+venv/
+.venv/
+env/
+__pycache__/
+*.pyc
+
+# Operating System Files
+.DS_Store
+Thumbs.db
