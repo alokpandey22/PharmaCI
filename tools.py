@@ -13,20 +13,20 @@ TOOLS_SCHEMAS = [
                 "properties": {
                     "company": {
                         "type": "string",
-                        "description": "Optional competitor name to filter by (e.g., GSK, Abbott, Sun Pharma, Novo Nordisk)."
+                        "description": "Optional competitor name to filter by (e.g., GSK, Abbott, Sun Pharma, Novo Nordisk). OMIT this parameter if not filtering by company (do not pass empty string)."
                     },
                     "therapeutic_area": {
                         "type": "string",
-                        "description": "Optional therapeutic area (e.g., Diabetes, Oncology, Dermatology, Respiratory, Vaccines)."
+                        "description": "Optional therapeutic area (e.g., Diabetes, Oncology, Dermatology, Respiratory, Vaccines). OMIT this parameter if not filtering by therapeutic area (do not pass empty string)."
                     },
                     "signal_type": {
                         "type": "string",
-                        "description": "Optional signal category (e.g., Pricing & Reimbursement, Sales Force Effectiveness, Pipeline, Clinical Trial, Regulatory)."
+                        "description": "Optional signal category (e.g., Pricing & Reimbursement, Sales Force Effectiveness, Pipeline, Clinical Trial, Regulatory). OMIT this parameter if not filtering by signal type (do not pass empty string)."
                     },
                     "impact_level": {
                         "type": "string",
                         "enum": ["High", "Medium", "Low"],
-                        "description": "Filter by the severity of the business threat."
+                        "description": "Optional impact level filter. OMIT this parameter if not filtering by impact level (do not pass empty string)."
                     }
                 }
             }

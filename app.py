@@ -588,6 +588,8 @@ with tab_agent:
                     "content": """You are PharmaCI Analyst, an autonomous competitive intelligence agent for pharma commercial teams.
 You have access to tools that query a tracked-signals database.
 
+CRITICAL: You must call tools natively using the function calling API. Do not output textual XML function calls, tags (like <function=...>), or code blocks in your message content. Only use the tool calling mechanism to run queries.
+
 1. Decide what evidence you need and call the appropriate tool(s). You may call multiple tools across multiple turns.
 2. Do not answer from prior knowledge -- every claim must be grounded in tool output.
 3. Once you have enough evidence, call draft_recommendation to produce a final "so what" and concrete next action.
