@@ -398,8 +398,8 @@ with tab_feed:
 # --------------------------------------------------------------------------------------
 # Tab 3: Grounded Q&A (RAG)
 # --------------------------------------------------------------------------------------
-if "rag_query_val" not in st.session_state:
-    st.session_state.rag_query_val = ""
+if "rag_user_q" not in st.session_state:
+    st.session_state.rag_user_q = ""
 if "run_rag" not in st.session_state:
     st.session_state.run_rag = False
 
@@ -415,16 +415,19 @@ with tab_ask:
     
     col_ex1, col_ex2, col_ex3 = st.columns(3)
     if col_ex1.button(rag_examples[0], key="rag_btn1"):
-        st.session_state.rag_query_val = rag_examples[0]
+        st.session_state.rag_user_q = rag_examples[0]
         st.session_state.run_rag = True
+        st.rerun()
     if col_ex2.button(rag_examples[1], key="rag_btn2"):
-        st.session_state.rag_query_val = rag_examples[1]
+        st.session_state.rag_user_q = rag_examples[1]
         st.session_state.run_rag = True
+        st.rerun()
     if col_ex3.button(rag_examples[2], key="rag_btn3"):
-        st.session_state.rag_query_val = rag_examples[2]
+        st.session_state.rag_user_q = rag_examples[2]
         st.session_state.run_rag = True
+        st.rerun()
 
-    user_q = st.text_input("Ask a competitive question:", value=st.session_state.rag_query_val)
+    user_q = st.text_input("Ask a competitive question:", key="rag_user_q")
     
     rag_trigger = st.button("Query Database")
     if rag_trigger:
@@ -483,8 +486,8 @@ User Query: {user_q}"""
 # --------------------------------------------------------------------------------------
 # Tab 4: Agent Analyst (Status Trace & Interactive State Sync)
 # --------------------------------------------------------------------------------------
-if "agent_query_val" not in st.session_state:
-    st.session_state.agent_query_val = ""
+if "agent_user_q" not in st.session_state:
+    st.session_state.agent_user_q = ""
 if "run_agent" not in st.session_state:
     st.session_state.run_agent = False
 
@@ -548,18 +551,21 @@ with tab_agent:
     
     col_ag1, col_ag2, col_ag3 = st.columns(3)
     if col_ag1.button(agent_examples[0], key="ag_btn1"):
-        st.session_state.agent_query_val = agent_examples[0]
+        st.session_state.agent_user_q = agent_examples[0]
         st.session_state.run_agent = True
+        st.rerun()
     if col_ag2.button(agent_examples[1], key="ag_btn2"):
-        st.session_state.agent_query_val = agent_examples[1]
+        st.session_state.agent_user_q = agent_examples[1]
         st.session_state.run_agent = True
+        st.rerun()
     if col_ag3.button(agent_examples[2], key="ag_btn3"):
-        st.session_state.agent_query_val = agent_examples[2]
+        st.session_state.agent_user_q = agent_examples[2]
         st.session_state.run_agent = True
+        st.rerun()
 
     agent_q = st.text_input(
         "Enter your complex competitor query:", 
-        value=st.session_state.agent_query_val, 
+        key="agent_user_q", 
         placeholder="Type a query or click one of the preset buttons above."
     )
     
@@ -617,7 +623,25 @@ You have access to tools that query a tracked-signals database.
                         break
                         
                     response_msg = res.choices[0].message
-                    messages.append(response_msg)
+                    
+                    # Convert response_msg object to dict to prevent subsequent API payload compilation errors
+                    msg_dict = {"role": "assistant"}
+                    if response_msg.content:
+                        msg_dict["content"] = response_msg.content
+                    if response_msg.tool_calls:
+                        tool_calls_list = []
+                        for tc in response_msg.tool_calls:
+                            tool_calls_list.append({
+                                "id": tc.id,
+                                "type": "function",
+                                "function": {
+                                    "name": tc.function.name,
+                                    "arguments": tc.function.arguments
+                                }
+                            })
+                        msg_dict["tool_calls"] = tool_calls_list
+                    
+                    messages.append(msg_dict)
                     
                     if response_msg.tool_calls:
                         for tool_call in response_msg.tool_calls:
