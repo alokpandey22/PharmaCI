@@ -625,25 +625,7 @@ CRITICAL: You must call tools natively using the function calling API. Do not ou
                         break
                         
                     response_msg = res.choices[0].message
-                    
-                    # Convert response_msg object to dict to prevent subsequent API payload compilation errors
-                    msg_dict = {"role": "assistant"}
-                    if response_msg.content:
-                        msg_dict["content"] = response_msg.content
-                    if response_msg.tool_calls:
-                        tool_calls_list = []
-                        for tc in response_msg.tool_calls:
-                            tool_calls_list.append({
-                                "id": tc.id,
-                                "type": "function",
-                                "function": {
-                                    "name": tc.function.name,
-                                    "arguments": tc.function.arguments
-                                }
-                            })
-                        msg_dict["tool_calls"] = tool_calls_list
-                    
-                    messages.append(msg_dict)
+                    messages.append(response_msg)
                     
                     if response_msg.tool_calls:
                         for tool_call in response_msg.tool_calls:
